@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>家計簿アプリ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header_inner">
+      <h1 class="header_logo">家計簿アプリ<span>Kakeibo</span></h1>
+      <div class="header_meta">
+        <button class="btn-month" id="prevMonth">&#8249;</button>
+        <span class="header_month" id="currentMonth"></span>
+        <button class="btn-month" id="nextMonth">&#8250;</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="summary">
+      <div class="summary_card summary_card-income">
+        <p class="summary_label">収入</p>
+        <p class="summary_amount" id="totalIncome">¥0</p>
+      </div>
+      <div class="summary_card summary_card-expense">
+        <p class="summary_label">支出</p>
+        <p class="summary_amount" id="totalExpense">¥0</p>
+      </div>
+      <div class="summary_card summary_card-balance">
+        <p class="summary_label">残高</p>
+        <p class="summary_amount" id="totalBalance">¥0</p>
+      </div>
+    </section>
+
+    <section class="form-section">
+      <h2 class="section-title">新規入力</h2>
+      <div class="form-card">
+        <div class="type-toggle">
+          <button class="type-toggle_btn type-toggle__btn--active" id="btnIncome" data-type="income">収入</button>
+          <button class="type-toggle_btn" id="btnExpense" data-type="expense">支出</button>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="inputDate">日付</label>
+            <input type="date" id="inputDate">
+          </div>
+          <div class="form-group">
+            <label for="inputAmount">金額 (円)</label>
+            <input type="number" id="inputAmount" placeholder="例: 5000" min="1">
+          </div>
+          <div class="form-group">
+            <label for="inputCategory">カテゴリ</label>
+            <select id="inputCategory"></select>
+          </div>
+          <div class="form-group form-group-full">
+            <label for="inputMemo">メモ</label>
+            <input type="text" id="inputMemo" placeholder="例: スーパーで食材を購入" maxlength="40">
+          </div>
+        </div>
+
+        <button class="btn-add" id="btnAdd">追加する</button>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <h2 class="section-title">月別推移</h2>
+      <div class="trend-chart-wrapper">
+        <canvas id="trendChart" width="800" height="300"></canvas>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <h2 class="section-title">支出内訳</h2>
+      <div class="chart-wrapper">
+        <canvas id="donutChart" width="220" height="220"></canvas>
+        <div class="chart-legend" id="chartLegend"></div>
+      </div>
+    </section>
+
+    <section class="list-section">
+      <h2 class="section-title">取引一覧</h2>
+      <div class="list-filter">
+        <button class="filter-btn filter-btn--active" data-filter="all">すべて</button>
+        <button class="filter-btn" data-filter="income">収入</button>
+        <button class="filter-btn" data-filter="expense">支出</button>
+      </div>
+      <button class="btn-csv" id="btnCsv">
+        CSV出力
+      </button>
+      <ul class="transaction-list" id="transactionList"></ul>
+      <p class="empty-msg" id="emptyMsg">まだ取引がありません</p>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal">
+      <p class="modal_text">この取引を削除しますか</p>
+      <div class="modal_btns">
+        <button class="modal_btn modal_btn-cancel" id="modalCancel">キャンセル</button>
+        <button class="modal_btn modal_btn-confirm" id="modalConfirm">削除</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
